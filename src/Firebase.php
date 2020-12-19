@@ -67,9 +67,8 @@ class Firebase
     /**
      * Set new values for Firestore collection
      * @param string $collection - Firestore collection name
-     * @param string $document - Firestore document name
      */
-    public function set(string $collection, string $document)
+    public function set(string $collection)
     {
         // Takes raw data from the request
         $json = file_get_contents('php://input');
