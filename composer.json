@@ -1,0 +1,22 @@
+{
+    "name": "alex-su/fire-base",
+    "description": "Testing project",
+    "require": {
+        "php": ">=7.4",
+        "kreait/firebase-php": "^4.0",
+        "google/cloud": "dev-master"
+    },
+    "authors": [
+        {
+            "name": "Alex Sushitskiy",
+            "email": "magnetos.ua@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/",
+            "App\\Config\\": "config/",
+            "App\\Test\\": "test/"
+        }
+    }
+}
