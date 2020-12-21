@@ -25,7 +25,7 @@ wrapped(change).then(async (res) => {
     console.log(result);
 });
 
-// Weiting for Promise and check compare accepted email from testEmail
+// Waiting for Promise and compare accepted email with testEmail
 setTimeout(()=>{
     assert.equal(result, testEmailAddress);
 }, 3000);
