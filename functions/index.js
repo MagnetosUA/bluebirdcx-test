@@ -3,7 +3,6 @@
 const functions = require('firebase-functions');
 const nodemailer = require('nodemailer');
 const escapeHtml = require('escape-html');
-
 const gmailEmail = functions.config().gmail.email;
 const gmailPassword = functions.config().gmail.password;
 const mailTransport = nodemailer.createTransport({
@@ -28,22 +27,32 @@ exports.alexSendEmailNotification = functions.firestore.document('/test_sushytsk
   const mailOptions = {
     from: '<noreply@firebase.com>',
     to: email,
+    dsn: {
+      id: 'Request_DSN_delivered_messages',
+      return: 'headers',
+      notify: 'success',
+      recipient: gmailEmail
+    }
   };
 
   //Building Email message.
   mailOptions.subject = 'Testing data updating';
   mailOptions.text = 'The data is updated:) Org ID: ' + orgId;
 
+  // For checking email status
+  let resEmail = '';
+
   try {
-    await mailTransport.sendMail(mailOptions);
+    resEmail = await mailTransport.sendMail(mailOptions);
     console.log(`New email notification sent to ${email}`);
   } catch(error) {
     console.error('There was an error while sending the email:', error);
   }
 
   functions.logger.info(`Send update notification to email: ${email}`, {structuredData: true});
+  functions.logger.info(resEmail.accepted, {structuredData: true});
 
-  return null;
+  return resEmail;
 });
 
 /**
